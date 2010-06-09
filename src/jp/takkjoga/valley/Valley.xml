@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://ns.adobe.com/air/application/1.5">
+    <id>jp.takkjoga.Valley</id>
+    <version>0.1</version>
+    <filename>Valley</filename>
+    <initialWindow>
+        <content>Valley.swf</content>
+        <visible>true</visible>
+        <systemChrome>standard</systemChrome>
+        <width>600</width>
+        <height>400</height>
+    </initialWindow>
+</application>
