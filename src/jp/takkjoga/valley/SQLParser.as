@@ -2,6 +2,7 @@ package jp.takkjoga.valley
 {
 
 import jp.takkjoga.valley.SQL.*;
+import jp.takkjoga.valley.util.*;
 
 public class SQLParser
 {
@@ -20,29 +21,9 @@ public class SQLParser
         if (this._parseStatement == "") {
             throw new Error("Empty Statement String");
         }
-        var tokenList:Array = this._split(this._parseStatement);
-        this._parsedStatement = this._analyze(tokenList);
-    }
 
-    private function _split(statement:String):Array
-    {
-        var tokenList:Array = new Array();
-        //statement = statement.replace(/ /g, "");
-        var part:String;
-        while (part = this._split2(statement)) {
-            trace(statement.length);
-            tokenList.push(part);
-            statement = statement.substring(part.length);
-        }
-        return tokenList;
-    }
-
-    private function _split2(statement:String):String
-    {
-        if (statement == '' || !statement) {
-            return '';
-        }
-        return statement;
+        var token:Tokenizer = new Tokenizer(this._parseStatement);
+        this._parsedStatement = this._analyze(token.parsedList);
     }
 
     private function _analyze(tokenList:Array):String
