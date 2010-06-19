@@ -3,14 +3,20 @@ package jp.takkjoga.valley
 
 import jp.takkjoga.valley.SQL.*;
 import jp.takkjoga.valley.util.*;
+import jp.takkjoga.valley.util.token.*;
 
 public class SQLParser
 {
+    private var _database:String;
     private var _parseStatement:String;
+    private var _token:Token;
 
-    public function SQLParser(statement:String = ""):void
+    public function SQLParser(database:String, statement:String = ""):void
     {
-        this._parseStatement = statement;
+        this._database = database;
+        if (statement != "") {
+            this.parse(statement);
+        }
     }
 
     public function parse(statement:String = ""):void
@@ -22,18 +28,18 @@ public class SQLParser
             throw new Error("Empty Statement String");
         }
 
-        var token:Tokenizer = new Tokenizer(this._parseStatement);
-        this._parsedStatement = this._analyze(token.parsedList);
+        this._token = Tokenizer.factory(this._database, this._parseStatement);
     }
 
-    private function _analyze(tokenList:Array):String
+    private function _analyze():String
     {
-        return new ParsedStatement(tokenList).toString();
+        return ParsedStatement.getInstance(this._token).toString();
     }
 
     private var _parsedStatement:String;
     public function get parsedStatement():String
     {
+        this._parsedStatement = this._analyze();
         return this._parsedStatement;
     }
 }

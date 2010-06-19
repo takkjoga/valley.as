@@ -1,54 +1,25 @@
 package jp.takkjoga.valley.util
 {
 
+import jp.takkjoga.valley.util.token.*;
+
 public class Tokenizer
 {
-    private var _parseStatement:String;
-    private var _surroundLevel:int = 0;
+    private static var _instance:Token;
 
-    public function Tokenizer(statement:String = ""):void
+    public function Tokenizer():void
     {
-        this._parseStatement = statement;
-        this._split();
+        throw new Error("require factory method");
     }
 
-    private var _parsedList:Array;
-    public function get parsedList():Array {
-        return this._parsedList;
-    }
-
-    private function _split():void
+    public static function factory(database:String, statement:String = ""):Token
     {
-        var tokenList:Array = new Array();
-        var part:String;
-        while (part = this._split2()) {
-            tokenList.push(part);
+        if (Tokenizer._instance == null) {
+            // TODO
+            // database driver
+            Tokenizer._instance = new Token(statement);
         }
-        this._parsedList = tokenList;
-    }
-
-    private function _split2():String
-    {
-        var s:String = this._parseStatement;
-
-        if (s == '' || !s) {
-            return '';
-        }
-
-        var part:String;
-        var matched:Array;
-        if (s.match(/^\W/)) {
-            matched = s.match(/^(\W)/);
-        } else if (s.match(/^\w/)) {
-            matched = s.match(/^\w+/);
-        } else {
-            throw new Error("part is empty");
-        }
-        part = matched[0];
-        trace(part);
-
-        this._parseStatement = s.substring(part.length);
-        return part;
+        return Tokenizer._instance;
     }
 }
 }

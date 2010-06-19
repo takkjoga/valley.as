@@ -30,7 +30,7 @@
             trace(statementText);
             variables.q = statementText;
 
-            var parser:SQLParser = new SQLParser();
+            var parser:SQLParser = new SQLParser("mysql");
             parser.parse(statementText);
             analyzedText.htmlText = parser.parsedStatement;
 
