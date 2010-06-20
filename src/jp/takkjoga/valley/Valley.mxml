@@ -33,6 +33,7 @@
             var parser:SQLParser = new SQLParser("mysql");
             parser.parse(statementText);
             analyzedText.htmlText = parser.parsedStatement;
+            trace(analyzedText.htmlText);
 
             var request:URLRequest = new URLRequest(gateway);
             request.method = URLRequestMethod.GET;

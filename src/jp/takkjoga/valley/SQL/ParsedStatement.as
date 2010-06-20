@@ -1,6 +1,8 @@
 package jp.takkjoga.valley.SQL
 {
 
+import jp.takkjoga.valley.util.TokenIterator;
+import jp.takkjoga.valley.util.ColorizedStatement;
 import jp.takkjoga.valley.util.token.Token;
 
 public class ParsedStatement
@@ -30,8 +32,9 @@ public class ParsedStatement
     public function toString():String
     {
         var output:String = "";
-        for (var i:int = 0; i < this._token.parsedList.length; i ++) {
-            output += "<b>" + this._token.parsedList[i] + "</b> ";
+        var it:TokenIterator = new TokenIterator(this._token);
+        while (it.hasNext()) {
+            output += ColorizedStatement.factory(String(it.next));
         }
         return output;
     }
